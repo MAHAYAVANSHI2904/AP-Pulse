@@ -11,7 +11,7 @@ import os
 
 DB_PATH = "invoice_forensics.db"
 SCOPES = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-SHEET_ID = "1j7U1Kw0NG2I77V19S0vIRqDqIFYCFdXIPE7wSDSfulQ"
+SHEET_ID = st.secrets.get("SHEET_ID", "")
 CREDS_FILE = os.path.join(os.path.dirname(__file__), "credentials.json")
 
 def _client():
