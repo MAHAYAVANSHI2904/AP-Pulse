@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment / secrets
+.env
+*.env
+.streamlit/secrets.toml
+credentials.json
+service_account*.json
+token*.json
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# CSV / data exports
+*.csv
+data/
+exports/
+
+# Logs
+*.log
+logs/
+compliance_audit.csv
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
