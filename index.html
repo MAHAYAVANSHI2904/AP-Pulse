@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AP Pulse | AI Invoice Compliance Engine</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0f1117;color:#e0e0e0;line-height:1.7}
+header{background:linear-gradient(135deg,#0d1b2a,#1a3a5c);padding:60px 40px;text-align:center;border-bottom:2px solid #1e4976}
+header h1{font-size:2.6rem;color:#fff;letter-spacing:1px}
+header .sub{font-size:1rem;color:#7ab3d4;margin-top:10px}
+.tags{margin-top:16px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.tags span{background:#1a3a5c;color:#64b5f6;padding:4px 14px;border-radius:20px;font-size:0.82rem}
+.contact-bar{background:#0d1520;text-align:center;padding:12px;font-size:0.88rem;color:#5a8aaa;border-bottom:1px solid #1a2d40}
+.contact-bar a{color:#64b5f6;text-decoration:none;margin:0 12px}
+.section{max-width:920px;margin:50px auto;padding:0 24px}
+.section h2{font-size:1.3rem;color:#64b5f6;border-left:4px solid #1a3a5c;padding-left:14px;margin-bottom:24px;text-transform:uppercase;letter-spacing:1px}
+.card{background:#131920;border:1px solid #1a2d40;border-radius:12px;padding:28px;margin-bottom:24px}
+.card h3{font-size:1.1rem;color:#fff;margin-bottom:12px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.badge{background:#0d1b2a;color:#64b5f6;border:1px solid #1a3a5c;padding:3px 12px;border-radius:20px;font-size:0.78rem}
+.card p,.card li{font-size:0.92rem;color:#a0b8cc;margin-bottom:6px}
+.card ul{padding-left:18px}
+.impact-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px}
+.ibox{background:#0d1b2a;border:1px solid #1a3a5c;border-radius:10px;padding:16px 20px;text-align:center;flex:1;min-width:130px}
+.ibox .num{font-size:1.6rem;font-weight:700;color:#64b5f6}
+.ibox .lbl{font-size:0.75rem;color:#4a7a9b;margin-top:4px}
+.security-box{background:#0a1a0a;border:1px solid #1a4a1a;border-radius:10px;padding:20px 24px;margin-top:8px}
+.security-box h4{color:#4caf50;font-size:0.9rem;margin-bottom:10px}
+.security-box li{color:#7ab87a;font-size:0.88rem;margin-bottom:5px}
+.arch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.arch-card{background:#0d1b2a;border:1px solid #1a3a5c;border-radius:10px;padding:16px;text-align:center}
+.arch-card .icon{font-size:1.8rem;margin-bottom:8px}
+.arch-card h4{color:#64b5f6;font-size:0.88rem;margin-bottom:6px}
+.arch-card p{color:#5a8aaa;font-size:0.8rem}
+.back-btn{display:inline-block;margin-bottom:30px;color:#64b5f6;text-decoration:none;font-size:0.9rem;border:1px solid #1a3a5c;padding:6px 16px;border-radius:20px}
+.back-btn:hover{background:#1a3a5c}
+footer{text-align:center;padding:40px;color:#2a4a5a;font-size:0.82rem;border-top:1px solid #1a2d40;margin-top:60px}
+</style>
+</head>
+<body>
+<header>
+<h1>AP Pulse</h1>
+<p class="sub">AI-Powered Accounts Payable & Invoice Compliance Automation Engine</p>
+<div class="tags">
+<span>Python</span><span>OCR</span><span>LLM</span><span>GST/TDS Compliance</span><span>Google Sheets API</span><span>Streamlit</span><span>SQLite</span>
+</div>
+</header>
+<div class="contact-bar">
+<a href="https://mahayavanshi2904.github.io/Chirag.portfolio" target="_blank">Back to Portfolio</a>
+<a href="https://linkedin.com/in/chirag-mahayavanshi" target="_blank">LinkedIn — Chirag Mahayavanshi</a>
+</div>
+<div class="section">
+<a class="back-btn" href="https://mahayavanshi2904.github.io/Chirag.portfolio">← Back to Portfolio</a>
+<h2>The Problem</h2>
+<div class="card">
+<h3>Why AP Pulse was built</h3>
+<p>Finance teams at NBFCs and CA firms were losing 2+ hours every day to manual invoice entry, error-prone GST and TDS calculations, and fragmented ledger updates. Every invoice required manual field extraction, manual tax validation, and manual data entry into financial records — creating a high-error, high-effort process that scaled poorly with volume.</p>
+<p style="margin-top:12px">AP Pulse was built after directly observing these pain points inside a live NBFC environment, identifying invoice processing as the single highest-friction function in the AP cycle.</p>
+</div>
+<h2>How It Works — Architecture</h2>
+<div class="arch-grid">
+<div class="arch-card"><div class="icon">📄</div><h4>Step 1 — Upload</h4><p>User uploads PDF or scanned image invoice via Streamlit UI</p></div>
+<div class="arch-card"><div class="icon">🔍</div><h4>Step 2 — OCR Extraction</h4><p>PyMuPDF + Tesseract extracts raw text from invoice with AI self-correction fallback</p></div>
+<div class="arch-card"><div class="icon">🧠</div><h4>Step 3 — LLM Parsing</h4><p>Groq AI / Gemini Flash / Claude API parses structured fields from extracted text</p></div>
+<div class="arch-card"><div class="icon">✅</div><h4>Step 4 — Compliance Check</h4><p>Validates GSTIN, PAN, MSME/Udyam, auto-calculates TDS, checks GST summary</p></div>
+<div class="arch-card"><div class="icon">📊</div><h4>Step 5 — Ledger Sync</h4><p>Pushes verified vendor data, tax figures and journal entries to Google Sheets via API</p></div>
+<div class="arch-card"><div class="icon">📁</div><h4>Step 6 — Export</h4><p>Generates Tally XML export and GSTR-2B reconciliation output</p></div>
+</div>
+<h2>Key Features</h2>
+<div class="card">
+<ul>
+<li>End-to-end OCR + LLM pipeline — parses complex PDF and image invoices with AI self-correction fallback (Groq, Gemini Flash)</li>
+<li>Smart compliance engine — validates GSTIN, PAN, MSME/Udyam registration and auto-calculates TDS producing audit-ready output</li>
+<li>Google Sheets API integration — pushes verified vendor data, tax figures and journal entries directly, eliminating manual re-entry</li>
+<li>GSTR-2B auto-reconciliation — matches purchase data against GSTR-2B for ITC claim accuracy</li>
+<li>Tally XML export — direct export format compatible with Tally Prime import</li>
+<li>Multi-user SQLite architecture — isolated login with role-based access control</li>
+<li>AI fallback layer — when OCR confidence is low, LLM self-corrects extraction errors automatically</li>
+</ul>
+</div>
+<h2>Impact</h2>
+<div class="card">
+<div class="impact-row">
+<div class="ibox"><div class="num">80%</div><div class="lbl">Faster Processing</div></div>
+<div class="ibox"><div class="num">2hrs→10min</div><div class="lbl">Per Invoice Cycle</div></div>
+<div class="ibox"><div class="num">Zero</div><div class="lbl">GST/TDS Errors</div></div>
+<div class="ibox"><div class="num">Zero</div><div class="lbl">Duplicate Entries</div></div>
+<div class="ibox"><div class="num">Zero</div><div class="lbl">Manual Re-entry</div></div>
+</div>
+</div>
+<h2>Tech Stack</h2>
+<div class="card">
+<div class="badge-row">
+<span class="badge">Python</span><span class="badge">PyMuPDF</span><span class="badge">Tesseract OCR</span><span class="badge">Groq AI</span><span class="badge">Gemini Flash</span><span class="badge">Claude API</span><span class="badge">Google Sheets API</span><span class="badge">SQLite</span><span class="badge">Streamlit</span><span class="badge">Vercel</span><span class="badge">Git/GitHub</span>
+</div>
+</div>
+<h2>Security</h2>
+<div class="card">
+<div class="security-box">
+<h4>Security Measures Applied</h4>
+<ul>
+<li>No API keys, credentials or secrets committed to this repository</li>
+<li>All secrets managed via st.secrets (Streamlit Cloud) or environment variables</li>
+<li>.gitignore configured to exclude .env files, database files, and credential files</li>
+<li>No real invoice data, vendor names or financial records stored in this repo</li>
+<li>SheetsConnector.py uses environment-based Sheet ID — no hardcoded values</li>
+<li>All sample/test data uses dummy placeholder values only</li>
+</ul>
+</div>
+</div>
+</div>
+<footer>
+<p>AP Pulse — Built by Chirag Mahayavanshi | Mumbai, India</p>
+<p style="margin-top:8px">Senior Finance & Automation Specialist | ACCA (9/13) | Masters in International Accounting & Finance</p>
+</footer>
+</body>
+</html>
