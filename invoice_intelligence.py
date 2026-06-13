@@ -30,9 +30,12 @@ import io
 from typing import Optional
 
 # --- SELF-COMPANY FILTER (Blacklist your own details) ---
-SELF_COMPANY_NAMES = ["APOLLO FINVEST", "APOLLO FINVEST INDIA LIMITED"]
-SELF_GSTIN = "27ABMCS9033K1ZQ"
-SELF_PAN = "AAACA0952A"
+import os
+
+# Load from environment variables — never hardcode org identifiers in source
+SELF_COMPANY_NAMES = [n.strip() for n in os.environ.get("SELF_COMPANY_NAMES", "").split(",") if n.strip()]
+SELF_GSTIN = os.environ.get("SELF_GSTIN", "")
+SELF_PAN = os.environ.get("SELF_PAN", "")
 
 # --- HARDCODED GROUND TRUTH (For 100% Accuracy on your Reference Vendors) ---
 VENDOR_KNOWLEDGE = {
