@@ -3,117 +3,1064 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>AP Pulse | AI Invoice Compliance Engine</title>
+<title>AP Pulse — Invoice Compliance Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',sans-serif;background:#0f1117;color:#e0e0e0;line-height:1.7}
-header{background:linear-gradient(135deg,#0d1b2a,#1a3a5c);padding:60px 40px;text-align:center;border-bottom:2px solid #1e4976}
-header h1{font-size:2.6rem;color:#fff;letter-spacing:1px}
-header .sub{font-size:1rem;color:#7ab3d4;margin-top:10px}
-.tags{margin-top:16px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
-.tags span{background:#1a3a5c;color:#64b5f6;padding:4px 14px;border-radius:20px;font-size:0.82rem}
-.contact-bar{background:#0d1520;text-align:center;padding:12px;font-size:0.88rem;color:#5a8aaa;border-bottom:1px solid #1a2d40}
-.contact-bar a{color:#64b5f6;text-decoration:none;margin:0 12px}
-.section{max-width:920px;margin:50px auto;padding:0 24px}
-.section h2{font-size:1.3rem;color:#64b5f6;border-left:4px solid #1a3a5c;padding-left:14px;margin-bottom:24px;text-transform:uppercase;letter-spacing:1px}
-.card{background:#131920;border:1px solid #1a2d40;border-radius:12px;padding:28px;margin-bottom:24px}
-.card h3{font-size:1.1rem;color:#fff;margin-bottom:12px}
-.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.badge{background:#0d1b2a;color:#64b5f6;border:1px solid #1a3a5c;padding:3px 12px;border-radius:20px;font-size:0.78rem}
-.card p,.card li{font-size:0.92rem;color:#a0b8cc;margin-bottom:6px}
-.card ul{padding-left:18px}
-.impact-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px}
-.ibox{background:#0d1b2a;border:1px solid #1a3a5c;border-radius:10px;padding:16px 20px;text-align:center;flex:1;min-width:130px}
-.ibox .num{font-size:1.6rem;font-weight:700;color:#64b5f6}
-.ibox .lbl{font-size:0.75rem;color:#4a7a9b;margin-top:4px}
-.security-box{background:#0a1a0a;border:1px solid #1a4a1a;border-radius:10px;padding:20px 24px;margin-top:8px}
-.security-box h4{color:#4caf50;font-size:0.9rem;margin-bottom:10px}
-.security-box li{color:#7ab87a;font-size:0.88rem;margin-bottom:5px}
-.arch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.arch-card{background:#0d1b2a;border:1px solid #1a3a5c;border-radius:10px;padding:16px;text-align:center}
-.arch-card .icon{font-size:1.8rem;margin-bottom:8px}
-.arch-card h4{color:#64b5f6;font-size:0.88rem;margin-bottom:6px}
-.arch-card p{color:#5a8aaa;font-size:0.8rem}
-.back-btn{display:inline-block;margin-bottom:30px;color:#64b5f6;text-decoration:none;font-size:0.9rem;border:1px solid #1a3a5c;padding:6px 16px;border-radius:20px}
-.back-btn:hover{background:#1a3a5c}
-footer{text-align:center;padding:40px;color:#2a4a5a;font-size:0.82rem;border-top:1px solid #1a2d40;margin-top:60px}
+:root {
+  --bg: #080a0e;
+  --surface: #0e1117;
+  --surface-2: #141820;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  --text: #e8eaf0;
+  --text-muted: rgba(232,234,240,0.4);
+  --text-dim: rgba(232,234,240,0.22);
+  --accent: #6ee7b7;
+  --accent-dim: rgba(110,231,183,0.08);
+  --accent-border: rgba(110,231,183,0.2);
+  --red: #f87171;
+  --amber: #fbbf24;
+  --blue: #60a5fa;
+  --serif: 'Instrument Serif', serif;
+  --sans: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 56px;
+  background: rgba(8,10,14,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-mark {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-mark svg { width: 14px; height: 14px; }
+.nav-logo-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--bg) !important;
+  background: var(--accent);
+  padding: 7px 16px;
+  border-radius: 6px;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  transition: opacity 0.2s !important;
+}
+.nav-cta:hover { opacity: 0.85; color: var(--bg) !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(110,231,183,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+}
+.hero-eyebrow-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  color: var(--text);
+  max-width: 800px;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 520px;
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 48px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 72px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 11px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 11px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--border-hover); color: var(--text); }
+
+/* ── KPI STRIP ── */
+.kpi-strip {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.kpi-item {
+  padding: 20px 32px;
+  text-align: center;
+  flex: 1;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.kpi-item:last-child { border-right: none; }
+.kpi-num {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.kpi-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+/* ── SECTIONS ── */
+.section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.section-title em { font-style: italic; color: var(--text-muted); }
+
+.section-body {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 620px;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 24px;
+}
+
+/* ── FEATURE GRID ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 56px;
+}
+
+.feature-card {
+  background: var(--surface);
+  padding: 32px 28px;
+  transition: background 0.2s;
+}
+.feature-card:hover { background: var(--surface-2); }
+
+.feature-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.feature-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.feature-body {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ── ARCHITECTURE ── */
+.arch-flow {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.arch-step {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 24px;
+  position: relative;
+}
+.arch-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 48px;
+  bottom: -32px;
+  width: 1px;
+  background: var(--border);
+}
+.arch-step + .arch-step { margin-top: 32px; }
+
+.arch-num {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.arch-content {
+  padding-top: 12px;
+}
+.arch-content h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.arch-content p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ── COMPLIANCE TABLE ── */
+.compliance-table {
+  margin-top: 56px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.compliance-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 2fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.compliance-row:last-child { border-bottom: none; }
+.compliance-row:hover { background: var(--surface-2); }
+.compliance-row.header { background: var(--surface); }
+
+.cr-cell {
+  padding: 14px 20px;
+  font-size: 13px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+.cr-cell:last-child { border-right: none; }
+
+.cr-check {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.cr-section {
+  font-weight: 500;
+  color: var(--text);
+}
+.cr-desc {
+  color: var(--text-muted);
+}
+.compliance-row.header .cr-cell {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── TECH STACK ── */
+.stack-grid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.stack-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 16px;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.stack-item:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+.stack-item-icon { font-size: 22px; margin-bottom: 8px; }
+.stack-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.stack-item-role {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* ── SETUP ── */
+.code-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+.code-label {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+}
+.code-lang {
+  font-size: 10px;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--mono);
+}
+pre {
+  padding: 20px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: rgba(232,234,240,0.7);
+}
+.setup-steps {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.setup-step-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.setup-step-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.setup-step-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+/* ── SECURITY ── */
+.security-grid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.security-item {
+  display: flex;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+.security-icon {
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  background: rgba(110,231,183,0.06);
+  border: 1px solid rgba(110,231,183,0.15);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+.security-text h4 {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.security-text p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── AUTHOR ── */
+.author-card {
+  margin-top: 56px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+}
+.author-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+.author-name {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.author-title {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.author-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.author-link {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  border-radius: 6px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.author-link:hover { border-color: var(--border-hover); color: var(--text); }
+
+.author-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ab-item {
+  font-size: 11px;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .kpi-strip { flex-direction: column; }
+  .kpi-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .kpi-item:last-child { border-bottom: none; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .stack-grid { grid-template-columns: repeat(2, 1fr); }
+  .security-grid { grid-template-columns: 1fr; }
+  .author-card { grid-template-columns: 1fr; }
+  .compliance-row { grid-template-columns: 1fr; }
+  .cr-cell { border-right: none; border-bottom: 1px solid var(--border); }
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Color highlights in code */
+.c-green { color: #6ee7b7; }
+.c-blue  { color: #93c5fd; }
+.c-amber { color: #fbbf24; }
+.c-dim   { color: rgba(232,234,240,0.3); }
 </style>
 </head>
 <body>
-<header>
-<h1>AP Pulse</h1>
-<p class="sub">AI-Powered Accounts Payable & Invoice Compliance Automation Engine</p>
-<div class="tags">
-<span>Python</span><span>OCR</span><span>LLM</span><span>GST/TDS Compliance</span><span>Google Sheets API</span><span>Streamlit</span><span>SQLite</span>
-</div>
-</header>
-<div class="contact-bar">
-<a href="https://mahayavanshi2904.github.io/Chirag.portfolio" target="_blank">Back to Portfolio</a>
-<a href="https://linkedin.com/in/chirag-mahayavanshi" target="_blank">LinkedIn — Chirag Mahayavanshi</a>
-</div>
-<div class="section">
-<a class="back-btn" href="https://mahayavanshi2904.github.io/Chirag.portfolio">← Back to Portfolio</a>
-<h2>The Problem</h2>
-<div class="card">
-<h3>Why AP Pulse was built</h3>
-<p>Finance teams at NBFCs and CA firms were losing 2+ hours every day to manual invoice entry, error-prone GST and TDS calculations, and fragmented ledger updates. Every invoice required manual field extraction, manual tax validation, and manual data entry into financial records — creating a high-error, high-effort process that scaled poorly with volume.</p>
-<p style="margin-top:12px">AP Pulse was built after directly observing these pain points inside a live NBFC environment, identifying invoice processing as the single highest-friction function in the AP cycle.</p>
-</div>
-<h2>How It Works — Architecture</h2>
-<div class="arch-grid">
-<div class="arch-card"><div class="icon">📄</div><h4>Step 1 — Upload</h4><p>User uploads PDF or scanned image invoice via Streamlit UI</p></div>
-<div class="arch-card"><div class="icon">🔍</div><h4>Step 2 — OCR Extraction</h4><p>PyMuPDF + Tesseract extracts raw text from invoice with AI self-correction fallback</p></div>
-<div class="arch-card"><div class="icon">🧠</div><h4>Step 3 — LLM Parsing</h4><p>Groq AI / Gemini Flash / Claude API parses structured fields from extracted text</p></div>
-<div class="arch-card"><div class="icon">✅</div><h4>Step 4 — Compliance Check</h4><p>Validates GSTIN, PAN, MSME/Udyam, auto-calculates TDS, checks GST summary</p></div>
-<div class="arch-card"><div class="icon">📊</div><h4>Step 5 — Ledger Sync</h4><p>Pushes verified vendor data, tax figures and journal entries to Google Sheets via API</p></div>
-<div class="arch-card"><div class="icon">📁</div><h4>Step 6 — Export</h4><p>Generates Tally XML export and GSTR-2B reconciliation output</p></div>
-</div>
-<h2>Key Features</h2>
-<div class="card">
-<ul>
-<li>End-to-end OCR + LLM pipeline — parses complex PDF and image invoices with AI self-correction fallback (Groq, Gemini Flash)</li>
-<li>Smart compliance engine — validates GSTIN, PAN, MSME/Udyam registration and auto-calculates TDS producing audit-ready output</li>
-<li>Google Sheets API integration — pushes verified vendor data, tax figures and journal entries directly, eliminating manual re-entry</li>
-<li>GSTR-2B auto-reconciliation — matches purchase data against GSTR-2B for ITC claim accuracy</li>
-<li>Tally XML export — direct export format compatible with Tally Prime import</li>
-<li>Multi-user SQLite architecture — isolated login with role-based access control</li>
-<li>AI fallback layer — when OCR confidence is low, LLM self-corrects extraction errors automatically</li>
-</ul>
-</div>
-<h2>Impact</h2>
-<div class="card">
-<div class="impact-row">
-<div class="ibox"><div class="num">80%</div><div class="lbl">Faster Processing</div></div>
-<div class="ibox"><div class="num">2hrs→10min</div><div class="lbl">Per Invoice Cycle</div></div>
-<div class="ibox"><div class="num">Zero</div><div class="lbl">GST/TDS Errors</div></div>
-<div class="ibox"><div class="num">Zero</div><div class="lbl">Duplicate Entries</div></div>
-<div class="ibox"><div class="num">Zero</div><div class="lbl">Manual Re-entry</div></div>
-</div>
-</div>
-<h2>Tech Stack</h2>
-<div class="card">
-<div class="badge-row">
-<span class="badge">Python</span><span class="badge">PyMuPDF</span><span class="badge">Tesseract OCR</span><span class="badge">Groq AI</span><span class="badge">Gemini Flash</span><span class="badge">Claude API</span><span class="badge">Google Sheets API</span><span class="badge">SQLite</span><span class="badge">Streamlit</span><span class="badge">Vercel</span><span class="badge">Git/GitHub</span>
-</div>
-</div>
-<h2>Security</h2>
-<div class="card">
-<div class="security-box">
-<h4>Security Measures Applied</h4>
-<ul>
-<li>No API keys, credentials or secrets committed to this repository</li>
-<li>All secrets managed via st.secrets (Streamlit Cloud) or environment variables</li>
-<li>.gitignore configured to exclude .env files, database files, and credential files</li>
-<li>No real invoice data, vendor names or financial records stored in this repo</li>
-<li>SheetsConnector.py uses environment-based Sheet ID — no hardcoded values</li>
-<li>All sample/test data uses dummy placeholder values only</li>
-</ul>
-</div>
-</div>
-</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </svg>
+    </div>
+    <span class="nav-logo-name">AP Pulse</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#setup">Setup</a>
+    <a href="https://github.com/MAHAYAVANSHI2904/AP-Pulse" target="_blank" class="nav-cta">GitHub →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="hero-eyebrow-dot"></span>
+    Finance Act 2024 · FY 2025–26
+  </div>
+  <h1>Invoice compliance<br>on <em>autopilot.</em></h1>
+  <p class="hero-sub">AP Pulse uses OCR and LLaMA to extract invoice data, run 30+ GST/TDS forensic checks, and generate journal entries — in under 30 seconds per invoice.</p>
+  <div class="hero-actions">
+    <a href="https://github.com/MAHAYAVANSHI2904/AP-Pulse" target="_blank" class="btn-primary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      View on GitHub
+    </a>
+    <a href="https://mahayavanshi2904.github.io/Chirag.portfolio/" target="_blank" class="btn-ghost">← Back to Portfolio</a>
+  </div>
+  <div class="kpi-strip reveal">
+    <div class="kpi-item">
+      <div class="kpi-num">80%</div>
+      <div class="kpi-label">Reduction in processing time</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-num">30+</div>
+      <div class="kpi-label">GST / TDS forensic checks</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-num">&lt;30s</div>
+      <div class="kpi-label">Invoice to compliance report</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-num">100%</div>
+      <div class="kpi-label">Audit trail maintained</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <p class="section-label reveal">Features</p>
+  <h2 class="section-title reveal">Everything AP teams<br><em>actually need.</em></h2>
+  <p class="section-body reveal">Built from real NBFC accounts payable workflows — not a generic invoice tool.</p>
+
+  <div class="feature-grid reveal">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Vision OCR Pipeline</div>
+      <div class="feature-body">PyMuPDF → OpenCV deskew + denoise → Groq LLaMA vision. Handles scanned, multi-page, and rotated PDFs. Learns vendor layouts on first parse.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <div class="feature-title">30+ Compliance Checks</div>
+      <div class="feature-body">GSTIN checksum (Mod-36), intra/inter-state conflict, ITC eligibility, RCM detection, 206AB risk flag, MSME payment terms, duplicate invoice detection.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">TDS Section Mapping</div>
+      <div class="feature-body">30+ sections mapped to SAC codes. Priority cascade: Invoice Nature → SAC → AI predicted → manual review flag. Finance Act 2024 compliant.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📒</div>
+      <div class="feature-title">Journal Entry Generation</div>
+      <div class="feature-body">Double-entry bookkeeping auto-generated per invoice. Export as CSV or Tally XML (<code style="font-family:var(--mono);font-size:11px;color:var(--accent)">&lt;TALLYMESSAGE&gt;</code>) ready for import.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔄</div>
+      <div class="feature-title">GSTR-2B Reconciliation</div>
+      <div class="feature-body">Upload GSTR-2B CSV and match against ledger invoices. Flags ITC at risk when vendors haven't filed their returns.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📁</div>
+      <div class="feature-title">Vendor Intelligence</div>
+      <div class="feature-body">Accumulates PAN type, state, MSME status, 194C aggregate, and 206AB risk across sessions. Syncs to Google Sheets for cross-session persistence.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ARCHITECTURE -->
+<section class="section" id="architecture">
+  <p class="section-label reveal">Architecture</p>
+  <h2 class="section-title reveal">How it <em>works.</em></h2>
+
+  <div class="arch-flow reveal">
+    <div class="arch-step">
+      <div class="arch-num">01</div>
+      <div class="arch-content">
+        <h4>PDF / Image Upload</h4>
+        <p>Streamlit file uploader accepts PDF, PNG, JPG. PyMuPDF converts PDF pages to high-resolution PNG (200 DPI). OpenCV deskews, denoises, and binarizes each page for optimal OCR accuracy.</p>
+      </div>
+    </div>
+    <div class="arch-step">
+      <div class="arch-num">02</div>
+      <div class="arch-content">
+        <h4>3-Pass AI Extraction</h4>
+        <p>Pass 1: Groq LLaMA vision extracts all fields. Pass 2: Math validation cross-checks CGST=SGST, grand total, line item sum. Pass 3: Vendor script generated for reuse on future invoices from the same vendor.</p>
+      </div>
+    </div>
+    <div class="arch-step">
+      <div class="arch-num">03</div>
+      <div class="arch-content">
+        <h4>Compliance Engine</h4>
+        <p>Python rules engine runs 30+ checks — no external compliance APIs. TDS section resolved via priority cascade: Invoice Nature → SAC code → AI prediction → manual review flag. 194C aggregate tracked across sessions via SQLite.</p>
+      </div>
+    </div>
+    <div class="arch-step">
+      <div class="arch-num">04</div>
+      <div class="arch-content">
+        <h4>Audit Logging</h4>
+        <p>Every decision (pass/fail/flag) written to SQLite and Google Sheets. Compliance score (0–100), reasoning, and action checklist stored per invoice per user session.</p>
+      </div>
+    </div>
+    <div class="arch-step">
+      <div class="arch-num">05</div>
+      <div class="arch-content">
+        <h4>Dashboard + Export</h4>
+        <p>Tabbed Streamlit UI: Overview, Forensic Scans, TDS Summary, GST Summary, Vendor Data, Journal Entries. Export: CSV, Tally XML. GSTR-2B upload for ITC reconciliation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPLIANCE TABLE -->
+<section class="section">
+  <p class="section-label reveal">Compliance Coverage</p>
+  <h2 class="section-title reveal">What gets <em>checked.</em></h2>
+
+  <div class="compliance-table reveal">
+    <div class="compliance-row header">
+      <div class="cr-cell"><span class="cr-check">ID</span></div>
+      <div class="cr-cell"><span>Check</span></div>
+      <div class="cr-cell"><span>What it validates</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">C9</span></div>
+      <div class="cr-cell"><span class="cr-section">GSTIN Checksum</span></div>
+      <div class="cr-cell"><span class="cr-desc">Mod-36 algorithm + state code range + PAN segment format</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">C10</span></div>
+      <div class="cr-cell"><span class="cr-section">CGST = SGST</span></div>
+      <div class="cr-cell"><span class="cr-desc">Intra-state rule: CGST and SGST must be equal (±₹0.01 tolerance)</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">C13/14</span></div>
+      <div class="cr-cell"><span class="cr-section">Intra / Inter-State Conflict</span></div>
+      <div class="cr-cell"><span class="cr-desc">Detects IGST on intra-state or CGST+SGST on inter-state supplies</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">C3</span></div>
+      <div class="cr-cell"><span class="cr-section">RCM Liability</span></div>
+      <div class="cr-cell"><span class="cr-desc">20+ notified RCM services + foreign vendor import-of-service detection</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">C8</span></div>
+      <div class="cr-cell"><span class="cr-section">E-Invoice IRN</span></div>
+      <div class="cr-cell"><span class="cr-desc">Flags missing IRN on invoices with base value > ₹5 lakh</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">C11</span></div>
+      <div class="cr-cell"><span class="cr-section">ITC Blocked Credit</span></div>
+      <div class="cr-cell"><span class="cr-desc">Sec 17(5) categories: food, motor vehicle, club, life insurance, works contract</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">C18</span></div>
+      <div class="cr-cell"><span class="cr-section">MSME Payment Terms</span></div>
+      <div class="cr-cell"><span class="cr-desc">45-day limit per MSMED Act 2006; flags breaches with penal interest warning</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">C19</span></div>
+      <div class="cr-cell"><span class="cr-section">Duplicate Invoice</span></div>
+      <div class="cr-cell"><span class="cr-desc">Session + DB-level: same invoice number + GSTIN + base value</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">206AB</span></div>
+      <div class="cr-cell"><span class="cr-section">Non-Filer Risk</span></div>
+      <div class="cr-cell"><span class="cr-desc">Double TDS rate flag for vendors marked high-risk in vendor master</span></div>
+    </div>
+    <div class="compliance-row">
+      <div class="cr-cell"><span class="cr-check">194C</span></div>
+      <div class="cr-cell"><span class="cr-section">Aggregate Threshold</span></div>
+      <div class="cr-cell"><span class="cr-desc">Tracks cumulative contractor payments per vendor per FY; triggers at ₹1 lakh</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TECH STACK -->
+<section class="section">
+  <p class="section-label reveal">Stack</p>
+  <h2 class="section-title reveal">Built <em>lean.</em></h2>
+  <p class="section-body reveal">Every dependency earns its place. No bloat.</p>
+
+  <div class="stack-grid reveal">
+    <div class="stack-item">
+      <div class="stack-item-icon">🐍</div>
+      <div class="stack-item-name">Python 3.10+</div>
+      <div class="stack-item-role">Core runtime</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-item-icon">🎈</div>
+      <div class="stack-item-name">Streamlit</div>
+      <div class="stack-item-role">UI + deployment</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-item-icon">🧠</div>
+      <div class="stack-item-name">Groq LLaMA</div>
+      <div class="stack-item-role">Vision OCR + extraction</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-item-icon">📄</div>
+      <div class="stack-item-name">PyMuPDF</div>
+      <div class="stack-item-role">PDF → image</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-item-icon">👁️</div>
+      <div class="stack-item-name">OpenCV</div>
+      <div class="stack-item-role">Image preprocessing</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-item-icon">🗄️</div>
+      <div class="stack-item-name">SQLite / Postgres</div>
+      <div class="stack-item-role">Audit persistence</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-item-icon">📊</div>
+      <div class="stack-item-name">Google Sheets</div>
+      <div class="stack-item-role">Vendor master + logs</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-item-icon">⚙️</div>
+      <div class="stack-item-name">SQLAlchemy</div>
+      <div class="stack-item-role">DB abstraction</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SETUP -->
+<section class="section" id="setup">
+  <p class="section-label reveal">Setup</p>
+  <h2 class="section-title reveal">Running <em>locally.</em></h2>
+
+  <div class="setup-steps reveal">
+    <div>
+      <div class="setup-step-label">Step 1</div>
+      <div class="setup-step-title">Clone the repo</div>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-label">terminal</span>
+          <span class="code-lang">bash</span>
+        </div>
+        <pre><span class="c-dim">$</span> git clone https://github.com/MAHAYAVANSHI2904/AP-Pulse.git
+<span class="c-dim">$</span> cd AP-Pulse
+<span class="c-dim">$</span> pip install -r requirements.txt</pre>
+      </div>
+    </div>
+    <div>
+      <div class="setup-step-label">Step 2</div>
+      <div class="setup-step-title">Configure secrets</div>
+      <div class="setup-step-desc">Create <code style="font-family:var(--mono);font-size:12px;color:var(--accent)">.streamlit/secrets.toml</code> — never commit this file.</div>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-label">.streamlit/secrets.toml</span>
+          <span class="code-lang">toml</span>
+        </div>
+        <pre><span class="c-blue">GROQ_API_KEY</span>   = <span class="c-green">"gsk_your_key_here"</span>
+<span class="c-blue">SHEET_ID</span>       = <span class="c-green">"your_google_sheet_id"</span>
+<span class="c-blue">SELF_GSTIN</span>     = <span class="c-green">"your_company_gstin"</span>
+<span class="c-blue">SELF_PAN</span>       = <span class="c-green">"your_company_pan"</span>
+
+<span class="c-dim">[gcp_service_account]</span>
+<span class="c-blue">type</span>           = <span class="c-green">"service_account"</span>
+<span class="c-blue">project_id</span>     = <span class="c-green">"your_project_id"</span>
+<span class="c-blue">private_key</span>    = <span class="c-green">"-----BEGIN RSA PRIVATE KEY-----\n..."</span>
+<span class="c-blue">client_email</span>   = <span class="c-green">"sa@project.iam.gserviceaccount.com"</span></pre>
+      </div>
+    </div>
+    <div>
+      <div class="setup-step-label">Step 3</div>
+      <div class="setup-step-title">Run the app</div>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-label">terminal</span>
+          <span class="code-lang">bash</span>
+        </div>
+        <pre><span class="c-dim">$</span> streamlit run Invoice_Hub.py
+<span class="c-dim"># → http://localhost:8501</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECURITY -->
+<section class="section">
+  <p class="section-label reveal">Security</p>
+  <h2 class="section-title reveal">No secrets <em>in source.</em></h2>
+
+  <div class="security-grid reveal">
+    <div class="security-item">
+      <div class="security-icon">🔑</div>
+      <div class="security-text">
+        <h4>API Keys via st.secrets</h4>
+        <p>Groq API key and Google SA credentials managed via Streamlit secrets or env vars only. Never committed to repo.</p>
+      </div>
+    </div>
+    <div class="security-item">
+      <div class="security-icon">🗂️</div>
+      <div class="security-text">
+        <h4>DB Files Excluded</h4>
+        <p><code style="font-family:var(--mono);font-size:11px">invoice_forensics.db</code> and <code style="font-family:var(--mono);font-size:11px">vendor_intelligence.json</code> are gitignored. No invoice data in repo.</p>
+      </div>
+    </div>
+    <div class="security-item">
+      <div class="security-icon">🏢</div>
+      <div class="security-text">
+        <h4>Org Identifiers via Env</h4>
+        <p>Company GSTIN and PAN loaded from environment variables, not hardcoded in source code.</p>
+      </div>
+    </div>
+    <div class="security-item">
+      <div class="security-icon">🧹</div>
+      <div class="security-text">
+        <h4>No Real Vendor Data</h4>
+        <p>All sample invoices in this repo use dummy placeholder values. No real financial records stored.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AUTHOR -->
+<section class="section">
+  <div class="author-card reveal">
+    <div>
+      <div class="author-label">Built by</div>
+      <div class="author-name">Chirag Mahayavanshi</div>
+      <div class="author-title">Senior Finance Executive · ACCA Finalist (9/13)<br>Masters in International Accounting & Finance · Mumbai</div>
+      <div class="author-links">
+        <a href="https://www.linkedin.com/in/mahayavanshic/" target="_blank" class="author-link">LinkedIn →</a>
+        <a href="https://github.com/MAHAYAVANSHI2904" target="_blank" class="author-link">GitHub →</a>
+        <a href="https://instagram.com/aiassets" target="_blank" class="author-link">@AiAndAssets →</a>
+        <a href="https://mahayavanshi2904.github.io/Chirag.portfolio/" target="_blank" class="author-link">Portfolio →</a>
+      </div>
+    </div>
+    <div class="author-badge">
+      <div class="ab-item">Finance + AI Builder</div>
+      <div class="ab-item">NBFC AP Operations</div>
+      <div class="ab-item">GST / TDS Compliance</div>
+      <div class="ab-item">Python · Streamlit · LLM</div>
+    </div>
+  </div>
+</section>
+
 <footer>
-<p>AP Pulse — Built by Chirag Mahayavanshi | Mumbai, India</p>
-<p style="margin-top:8px">Senior Finance & Automation Specialist | ACCA (9/13) | Masters in International Accounting & Finance</p>
+  AP Pulse &mdash; Built by Chirag Mahayavanshi · Mumbai, India
 </footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
